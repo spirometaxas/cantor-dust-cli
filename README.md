@@ -1,5 +1,5 @@
 # cantor-dust-cli
-Print the Cantor Dust Fractal to the console!
+Print the [Cantor Dust](https://en.wikipedia.org/wiki/Cantor_set) Fractal to the console!
 
 ## Usage
 ### Via `npx`:
@@ -23,7 +23,6 @@ then:
 ```
 const cantor = require('cantor-dust-cli');
 console.log(cantor.create(<n>));
-console.log(cantor.create(<n>, <size>));
-console.log(cantor.create(<n>, <size>, <character>));
+console.log(cantor.create(<n>, { size: <number>, character: <character> }));
 ```
-
+The config params are optional. 

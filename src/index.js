@@ -18,26 +18,30 @@ const createBoard = function(w, h) {
   return board;
 }
 
-const drawSquare = function(board, pos, scale, character) {
-  var startX = pos.x - parseInt(getWidth(scale) / 2.0);
-  var startY = pos.y - parseInt(getHeight(scale) / 2.0); 
-  for (let i = 0; i < getHeight(scale); i++) {
-    for (let j = 0; j < getWidth(scale); j++) {
-      board[startY + i][startX + j] = character;
+const drawSquare = function(board, pos, size, character) {
+  var startX = pos.x - parseInt(getWidth(size) / 2.0);
+  var startY = pos.y - parseInt(getHeight(size) / 2.0); 
+  for (let i = 0; i < getHeight(size); i++) {
+    for (let j = 0; j < getWidth(size); j++) {
+      if (character !== undefined) {
+        board[startY + i][startX + j] = character;
+      } else {
+        board[startY + i][startX + j] = '\u001b[7m \u001b[0m';
+      }
     }
   }
 }
 
-const cantor = function(n, scale, board, pos, character) {
+const cantor = function(n, size, board, pos, character) {
   if (n === 0) {
-    drawSquare(board, pos, scale, character);
+    drawSquare(board, pos, size, character);
     return;
   }
 
-  cantor(n - 1, scale - 1, board, { x: pos.x + getWidth(scale - 1), y: pos.y + getHeight(scale - 1) }, character);
-  cantor(n - 1, scale - 1, board, { x: pos.x - getWidth(scale - 1), y: pos.y - getHeight(scale - 1) }, character);
-  cantor(n - 1, scale - 1, board, { x: pos.x + getWidth(scale - 1), y: pos.y - getHeight(scale - 1) }, character);
-  cantor(n - 1, scale - 1, board, { x: pos.x - getWidth(scale - 1), y: pos.y + getHeight(scale - 1) }, character);
+  cantor(n - 1, size - 1, board, { x: pos.x + getWidth(size - 1), y: pos.y + getHeight(size - 1) }, character);
+  cantor(n - 1, size - 1, board, { x: pos.x - getWidth(size - 1), y: pos.y - getHeight(size - 1) }, character);
+  cantor(n - 1, size - 1, board, { x: pos.x + getWidth(size - 1), y: pos.y - getHeight(size - 1) }, character);
+  cantor(n - 1, size - 1, board, { x: pos.x - getWidth(size - 1), y: pos.y + getHeight(size - 1) }, character);
 }
 
 const draw = function(board) {
@@ -51,20 +55,20 @@ const draw = function(board) {
   return result;
 }
 
-const create = function(n, scale, character = '\u001b[7m \u001b[0m') {
+const create = function(n, config) {
   if (n === undefined || n < 0) {
     return '';
   }
-  if (scale === undefined || scale < n) {
-    scale = n;
+  
+  let size = n;
+  if (config && config.size && config.size > n) {
+    size = config.size;
   }
 
-  if (character && character !== '\u001b[7m \u001b[0m' && character.length > 1) {
-    character = '\u001b[7m \u001b[0m';
-  }
+  const character = config !== undefined && config.character !== undefined && config.character.length === 1 ? config.character : undefined;
 
-  const board = createBoard(getWidth(scale), getHeight(scale));
-  cantor(n, scale, board, { x: parseInt(getWidth(scale) / 2.0), y: parseInt(getHeight(scale) / 2.0) }, character);
+  const board = createBoard(getWidth(size), getHeight(size));
+  cantor(n, size, board, { x: parseInt(getWidth(size) / 2.0), y: parseInt(getHeight(size) / 2.0) }, character);
   return draw(board);
 }
 
