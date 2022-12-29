@@ -3,13 +3,16 @@ const cantor = require('./index.js');
 
 const printUsage = function(showIntro) {
     if (showIntro) {
-        console.log('\n Print the Cantor Dust Fractal to the console!');
+        console.log(cantor.create(2));
+        console.log(' Print the Cantor Dust Fractal to the console!');
     }
     console.log('\n' + 
                 ' Usage:\n' + 
                 '   $ cantor-dust-cli <n>\n' + 
                 '   $ cantor-dust-cli <n> <size>\n' + 
                 '\n' + 
+                '   <n> is the recursive step, a number greater than or equal to 0\n' + 
+                '\n' +
                 ' Options:\n' + 
                 '   --blocks, -b             Draw using block characters\n' + 
                 '   --character=<character>  Draw using 1 specific character\n');

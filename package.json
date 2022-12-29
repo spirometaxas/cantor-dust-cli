@@ -1,6 +1,6 @@
 {
   "name": "cantor-dust-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Print the Cantor Dust Fractal to the console!",
   "main": "./src/index.js",
   "bin": {
