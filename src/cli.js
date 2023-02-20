@@ -9,9 +9,10 @@ const printUsage = function(showIntro) {
     console.log('\n' + 
                 ' Usage:\n' + 
                 '   $ cantor-dust-cli <n>\n' + 
-                '   $ cantor-dust-cli <n> <size>\n' + 
+                '   $ cantor-dust-cli <n> [size] [options]\n' + 
                 '\n' + 
                 '   <n> is the recursive step, a number greater than or equal to 0\n' + 
+                '   [size] is the size to draw, a number greater than or equal to <n>\n' + 
                 '\n' +
                 ' Options:\n' + 
                 '   --blocks, -b             Draw using block characters\n' + 
